@@ -1,5 +1,5 @@
 # ERBO Engineering medium example vault
-> This repository houses all code used in our medium articles
+> This repository houses all code used in our medium articles.
 We will keep this repository up to date with our latest examples and links to the used branches per medium article.
 
 ---- 
