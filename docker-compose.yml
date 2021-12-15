@@ -1,0 +1,24 @@
+# We store our Dockerfile and docker-compose.yml in the root of the firebase project
+# So instead of using 'image: firebase-emulator' to select a image
+# We inform docker-compose to build the container from the dockerfile if it does not exist
+version: "3.0"
+
+# It's named services but we only have one service namely firebase
+# But in the future you could expand this with like database services or something
+# In our upcoming articles we are going to be adding dgraph to this
+services:
+  firebase:
+    build: 
+      # Note the "." because we build from the project directory the docker-compose.yml and dockerfile are in
+      context: .
+    # Mount the firebase project directory to /app
+    volumes:
+      - ./:/app
+    # We specifically use 127.0.0.1 so it only links to the system that is running the container
+    # And avoid accidently publishing your emulator on your home network.
+    # In the browser you can access the emulator UI by going to (http://localhost:9098/)
+    ports:
+      - "127.0.0.1:9099:9099"
+      - "127.0.0.1:9098:9098"
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:9199:9199"
