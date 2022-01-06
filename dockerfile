@@ -15,15 +15,15 @@ RUN firebase setup:emulators:database
 RUN firebase setup:emulators:firestore
 RUN firebase setup:emulators:storage  
 RUN firebase setup:emulators:ui       
-    
+
 # Mount your firebase project directory to /app when running the container
 # This is the folder containing the firebase.json
 WORKDIR /app
 
 # Expose the emulator ports
 # If you use non standard ports change them to the ones in your firebase.json
-#       AUTH    STORE   FIRE    UI   emulator ports
-EXPOSE  9099    9199    8080    9098
+#       AUTH    STORE   FIRE    UI      functions emulator ports
+EXPOSE  9099    9199    8080    9098    5001
 
 # When startup of the container is complete this is the command that will be executed
 # In our case we want to start the firebase emulator suite
