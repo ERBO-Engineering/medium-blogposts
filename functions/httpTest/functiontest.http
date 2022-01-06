@@ -1,0 +1,43 @@
+### Testing calls for the Hubspot API cloud function
+@apiKey = test
+@url = 0.0.0.0:9099
+
+@authToken = {{login.response.body.$.idToken}}
+
+@projectID = default
+
+@email = consultancy@erbo.com
+
+
+### register firebase user
+# @name register
+POST http://{{url}}/identitytoolkit.googleapis.com/v1/accounts:signUp?key={{apiKey}}
+Content-Type: application/json
+
+{
+    "email":"{{email}}",
+    "password":"testtest123",
+    "returnSecureToken":true
+}
+
+### delete all the accounts from the emulator
+# @name delete
+DELETE http://localhost:9099/emulator/v1/projects/{{projectID}}/accounts
+
+
+### Sign in with to the registered user
+# we save the response idToken to use in our firebase functions
+# @name login
+POST http://{{url}}/identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={{apiKey}}
+Content-Type: application/json
+
+{
+    "email":"{{email}}",
+    "password":"testtest123",
+    "returnSecureToken":true
+}
+
+### call our authenticated function
+GET http://localhost:5001/{{projectID}}/us-central1/helloWorld
+Authorization: Bearer {{authToken}} 
+Content-Type: application/json
