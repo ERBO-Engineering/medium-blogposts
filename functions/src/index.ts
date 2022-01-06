@@ -12,11 +12,13 @@ export const helloWorld = functions.https.onRequest(
     try {
       let user = await getAutenticatedUser(request);
       response.send(
-        `<div> Hey ${user.email} you are allowed to call this function 😃🥳</div>`
+        `<marquee scrollamount="50" style="font-weight: 700; color: green; font-size: 10vh;"> Hey ${user.email} you are allowed to call this function 😃🥳</marquee>`
       );
     } catch (e) {
       functions.logger.error(e);
-      response.send("<div>😠 you are not authenticated!😠</div>");
+      response.send(
+        '<marquee scrollamount="50" style="font-weight: 700; color: red; font-size: 10vh;">😠 you are not authenticated!😠</marquee>'
+      );
     }
   }
 );
